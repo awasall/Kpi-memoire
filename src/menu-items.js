@@ -61,6 +61,13 @@ export const initNavigation = [
                         type: 'item',
                         icon: 'feather icon-lock',
                         url: '/changer-de-mot-de-passe'
+                    },
+                    {
+                    id: 'listeUser',
+                    title: 'Leste des utilisateurs',
+                    type: 'item',
+                    icon: 'feather icon-user-plus',
+                    url: '/ListeUser'
                     }
                 ]
             }

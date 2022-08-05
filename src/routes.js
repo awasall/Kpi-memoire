@@ -24,6 +24,8 @@ const AddUser = React.lazy(() => import('./App/layout/parameters/AddUser'));
 const ChangePwd = React.lazy(() => import('./ComponentLib/Authentication/ChangePwd'));
 const Dashboard = React.lazy(() => import('./ComponentLib/Dashboard/Dashboard'));
 const NotFound = React.lazy(() => import('./App/layout/NotFound'));
+const GetUser = React.lazy(() => import('./ComponentLib/Authentication/ListeUser'));
+const ModifUser = React.lazy(() => import('./ComponentLib/Authentication/EditUser'));
 
 const routes = [
     { path: '/dashboard/default', exact: true, name: 'Default', component: Nvd3Chart },
@@ -44,6 +46,10 @@ const routes = [
    { path: '/ajout-utilisateur', exact: true, name: 'Nouveau utilisateur', component: AddUser },
     { path: '/changer-de-mot-de-passe', exact: true, name: 'Changement de mot de passe', component: ChangePwd },
     { path: '/page-introuvable', exact: true, name: 'Page introuvable', component: NotFound },
+    { path: '/listeUser', exact: true, name: 'Liste utilisateur', component: GetUser },
+    { path: '/editUser/:id', exact: true, name: 'Modification utilisateur', component: ModifUser }
+
+
 ];
 
 export default routes;
