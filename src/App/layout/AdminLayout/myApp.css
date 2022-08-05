@@ -1,0 +1,27 @@
+.feather-16 {
+  width: 16px;
+  height: 16px;
+}
+
+.fa-1-5x {
+  font-size: 1.5em;
+}
+
+/***ancor**/
+.a-style {
+  color: #1890ff;
+  text-decoration: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  transition: color 0.3s;
+  touch-action: manipulation;
+}
+
+.middle-page {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
