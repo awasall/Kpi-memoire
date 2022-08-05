@@ -3,45 +3,49 @@ import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import config from '../../constants/config';
 import { tokenConfig } from '../../App/utilitity';
-
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const ListeUser = () => {
-  // function SimpleDialog(props) {
-  //   const { onClose, open, id } = props;
+  function SimpleDialog(props) {
+    const { onClose, open, id } = props;
   
-  //   const handleClose = () => {
-  //     onClose(false);
-  //   };
+    const handleClose = () => {
+      onClose(false);
+    };
   
-  //   return (
-  //     <Dialog 
-  //       onClose={handleClose} open={open} id={id}
-  //       aria-labelledby="alert-dialog-title"
-  //       aria-describedby="alert-dialog-description"
-  //     >
-  //       <DialogTitle>Confirmation suppression</DialogTitle>
-  //       <DialogContent>
-  //           <DialogContentText id="alert-dialog-description">
-  //             You are successful in life!
-  //           </DialogContentText>
-  //         </DialogContent>
-  //         <DialogActions>
-  //           <Button onClick={() => handleClose()} color="primary">
-  //             Disagree
-  //           </Button>
-  //           <Button onClick={() => remove(id)} color="primary" autoFocus>
-  //             Agree
-  //           </Button>
-  //         </DialogActions>
-  //     </Dialog>
-  //   );
-  // }
+    return (
+      <Dialog 
+        onClose={handleClose} open={open} id={id}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle>Confirmation suppression</DialogTitle>
+        <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              You are successful in life!
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => handleClose()} color="primary">
+              Disagree
+            </Button>
+            <Button onClick={() => remove(id)} color="primary" autoFocus>
+              Agree
+            </Button>
+          </DialogActions>
+      </Dialog>
+    );
+  }
 
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(false);
-  //const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
-  //const [id, setId] = React.useState('');
+  const [id, setId] = React.useState('');
 
   useEffect(() => {
     setLoading(true);
@@ -55,14 +59,14 @@ const ListeUser = () => {
       })
   }, []);
 
- /*  const handleClickOpen = (groudId) => {
+  const handleClickOpen = (groudId) => {
     setOpen(true);
     setId(groudId);
   };
 
   const handleClose = () => {
     setOpen(false);
-  }; */
+  };
 
 
   const remove = async (id) => {
@@ -83,7 +87,7 @@ const ListeUser = () => {
     await fetch(`${config.apiBaseUrl}/api/auth/deteuser/${id}`,requestOptions).then(() => {
       let updatedGroups = [...groups].filter(i => i.id !== id);
       setGroups(updatedGroups);
-      //handleClose();
+      handleClose();
     });
   }
 
@@ -100,9 +104,7 @@ const ListeUser = () => {
       <td>
         <ButtonGroup>
           <Button size="sm" color="primary" tag={Link} to={`/editUser/${group.id}`}>Edit</Button>
-{/*           <Button size="sm" color="danger" onClick={() => handleClickOpen(group.id)}>Delete</Button>
- */}          <Button size="sm" color="danger" onClick={() => remove(group.id)}>Delete</Button>
-
+          <Button size="sm" color="danger" onClick={() => handleClickOpen(group.id)}>Delete</Button>
         </ButtonGroup>
       </td>
     </tr>
@@ -128,11 +130,11 @@ const ListeUser = () => {
           </tbody>
         </Table>
       </Container>
-     {/*  <SimpleDialog
+      <SimpleDialog
         open={open}
         onClose={handleClose}
         id={id}
-      /> */}
+      />
     </div>
   );
 };

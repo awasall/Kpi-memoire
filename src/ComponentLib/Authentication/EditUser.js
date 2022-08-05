@@ -51,7 +51,7 @@ const EditUser = () => {
     navigate.push('/listeUser');
   }
 
-  const title = <h2>Edit User</h2>;
+  const title = <h2>Modifier l'utilisateur</h2>;
 
   return (<div>
      

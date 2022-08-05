@@ -61,13 +61,6 @@ export const initNavigation = [
                         type: 'item',
                         icon: 'feather icon-lock',
                         url: '/changer-de-mot-de-passe'
-                    },
-                    {
-                    id: 'listeUser',
-                    title: 'Leste des utilisateurs',
-                    type: 'item',
-                    icon: 'feather icon-user-plus',
-                    url: '/ListeUser'
                     }
                 ]
             }
@@ -106,6 +99,13 @@ function upadateParametersNav(username) {
             type: 'item',
             icon: 'feather icon-user-plus',
             url: '/ajout-utilisateur'
+        },
+        {
+        id: 'listeUser',
+        title: 'Liste des utilisateurs',
+        type: 'item',
+        icon: 'feather icon-user-plus',
+        url: '/ListeUser'
         })
 }
 
