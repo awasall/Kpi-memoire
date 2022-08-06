@@ -17,8 +17,10 @@ export class Board extends Component {
             // selectedBoard
         }
     }
-
-
+     /* convertDate = (mydata) => {
+        return moment(mydata).format("DD/MM/YYYY")
+    }
+ */
     fetchBoards = () => {
         Axios
             .get(config.apiBaseUrl + "/boards/project/" + this.props.projectId, tokenConfig())
@@ -38,7 +40,9 @@ export class Board extends Component {
     }
 
     dataSourceFromSprintsTable = (dataSource) => {
+        console.log(dataSource);
         this.setState({ dataSource })
+
     }
     render() {
         const boards = this.state.boards

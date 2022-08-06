@@ -20,21 +20,22 @@ const states = {
 }
 
 
-const convertDate = (mydata) => {
+ export const convertDate = (mydata) => {
     return moment(mydata).format("DD/MM/YYYY")
-}
+} 
 
 const columns = [
    
     {
         title: 'Sprint',
         dataIndex: 'name',
+        
     },
     {
         title: 'début',
         dataIndex: 'startDate',
         sorter: true,
-        render: state => (<span> {convertDate(state)}</span>)
+       render: state => (<span> {convertDate(state)}</span>)
     },
     {
         title: 'fin',
