@@ -10,6 +10,9 @@ import columns from '../../App/components/SprintData';
 import { tokenConfig, query, formatDate } from '../../App/utilitity';
 import DateRange from '../../App/components/Date/DateRange';
 import moment from 'moment';
+import CanvasJSReact from '../../assets/canvasjs.react';
+var CanvasJS = CanvasJSReact.CanvasJS;
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 const dashColumns = [...columns];
 dashColumns.unshift(
@@ -116,39 +119,72 @@ class Dashboard extends Component {
     }
 
     render() {
+        let datagraph=this.state.data;
+        let dataCharts = [];
+        let i = 0
+        console.log('datagraph: ', datagraph);
+        datagraph.forEach(element => {
+            console.log('element à afficher: ', element);
+            dataCharts.push({
+                x: i + 10,
+                y: element.stpEngage,
+                label: element.name
+            });
+            i += 10;
+          });
+        const options = {
+			animationEnabled: true,
+			exportEnabled: true,
+			theme: "light2", //"light1", "dark1", "dark2"
+			title:{
+				text: "Taux d'accélération des sprints"
+			},
+			axisY: {
+				includeZero: true
+			},
+			data: [{
+				type: "column", //change type to bar, line, area, pie, etc
+				//indexLabel: "{y}", //Shows y value on all Data Points
+				indexLabelFontColor: "#5A5757",
+                
+				indexLabelPlacement: "outside",
+				dataPoints: dataCharts
+			}]
+		}
         return (
-            <Col className='mt-1'>
-                <Row  >
-                    <Col sm={4} xs={12}>
-                        <ButtonGroup >
-                            <ExportExcel csvData={this.state.data} fileName={"Extraction - " + formatDate(moment())} columns={dashColumns} />
-                            <ReactToPrint
-                                trigger={() => <Button variant="danger">  <i className="feather icon-file-text  mx-0 " style={{ fontSize: "25px " }}></i> <span className="font-weight-bold">Pdf</span></Button>}
-                                content={() => this.componentRef}
-                            />
-                        </ButtonGroup>
-                    </Col >
-                    <Col sm={8} xs={12} className="align-self-center text-right ">
-                        <DateRange onPickDate={this.onPickDate} />
-                        <Button onClick={this.onDatePicked} variant="outline-success" className="btn-icon  btn-rounded ml-2">
-                            <i className="feather icon-save" aria-hidden="true"></i>
-                        </Button>
-                    </Col>
-                </Row>
+            <><div>
+                <CanvasJSChart options={options} />
+                {/*You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods*/}
+            </div><Col className='mt-1'>
+                    <Row>
+                        <Col sm={4} xs={12}>
+                            <ButtonGroup>
+                                <ExportExcel csvData={this.state.data} fileName={"Extraction - " + formatDate(moment())} columns={dashColumns} />
+                                <ReactToPrint
+                                    trigger={() => <Button variant="danger">  <i className="feather icon-file-text  mx-0 " style={{ fontSize: "25px " }}></i> <span className="font-weight-bold">Pdf</span></Button>}
+                                    content={() => this.componentRef} />
+                            </ButtonGroup>
+                        </Col>
+                        <Col sm={8} xs={12} className="align-self-center text-right ">
+                            <DateRange onPickDate={this.onPickDate} />
+                            <Button onClick={this.onDatePicked} variant="outline-success" className="btn-icon  btn-rounded ml-2">
+                                <i className="feather icon-save" aria-hidden="true"></i>
+                            </Button>
+                        </Col>
+                    </Row>
 
-                <Row className="mt-2 justify-content-center ">
-                    < PerfectScrollbar className='shadow-1 rounded ' ref={el => (this.componentRef = el)} >
-                        <Table columns={dashColumns}
-                            // className='shadow-1 rounded'
-                            //rowKey={record => record.registered}
-                            dataSource={this.state.data}
-                            pagination={this.state.pagination}
-                            loading={this.state.loading}
-                            onChange={this.handleTableChange}
-                        />
-                    </PerfectScrollbar >
-                </Row>
-            </Col>
+                    <Row className="mt-2 justify-content-center ">
+                        <PerfectScrollbar className='shadow-1 rounded ' ref={el => (this.componentRef = el)}>
+                            <Table columns={dashColumns}
+                                // className='shadow-1 rounded'
+                                //rowKey={record => record.registered}
+                                dataSource={this.state.data}
+                                pagination={this.state.pagination}
+                                loading={this.state.loading}
+                                onChange={this.handleTableChange} />
+                        </PerfectScrollbar>
+                    </Row>
+                </Col></>
         );
     }
 }
